@@ -33,8 +33,12 @@ export function PeriodSection({ period }: PeriodSectionProps) {
               <div className="text-left">Horário</div>
               <div className="text-right">Paciente</div>
             </div>
-            {period.appointments.map((appointment) => (
-              <AppointmentCard appointment={appointment} key={appointment.id} />
+            {period.appointments.map((appointment, index) => (
+              <AppointmentCard
+                key={index}
+                appointment={appointment}
+                isFirstInSection={index === 0}
+              />
             ))}
           </div>
         </div>
