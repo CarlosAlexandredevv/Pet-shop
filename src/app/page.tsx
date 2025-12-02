@@ -96,7 +96,7 @@ export default function Home() {
   const periods = groupAppointmentByPeriod(appointments);
   return (
     <div className="bg-background-primary p-6">
-      <div className="flex items-center justify-between md:m-8">
+      <div className="flex items-center sm:items-start justify-between md:m-8 flex-col">
         <div>
           <h1 className="text-title-size text-content-primary mb-2">
             Sua Agenda
@@ -105,7 +105,7 @@ export default function Home() {
             Aqui você pode ver todos os clientes e serviços agendados para hoje.
           </p>
         </div>
-        <div className="pb-24 md:pb-0">
+        <div className="pb-24 md:pb-0 w-full">
           {periods.map((period, index) => (
             <PeriodSection period={period} key={index} />
           ))}

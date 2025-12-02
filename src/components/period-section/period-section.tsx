@@ -25,6 +25,22 @@ export function PeriodSection({ period }: PeriodSectionProps) {
           {period.timeRange}
         </span>
       </div>
+      {period.appointments.length > 0 ? (
+        <div className="px-5">
+          <div>
+            <div className="grid grid-cols-2 md:hidden text-label-small-size text-content-secondary mb-2">
+              <div className="text-left">Horário</div>
+              <div className="text-right">Paciente</div>
+            </div>
+          </div>
+        </div>
+      ) : (
+        <div>
+          <p className="text-label-large-size text-content-secondary">
+            Nenhum agendamento encontrado
+          </p>
+        </div>
+      )}
     </section>
   );
 }
