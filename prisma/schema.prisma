@@ -6,7 +6,7 @@
 
 generator client {
   provider = "prisma-client"
-  output   = "@/generated/prisma"
+  output   = "../generated/prisma"
 }
 
 datasource db {
@@ -14,11 +14,11 @@ datasource db {
 }
 
 model Appointment {
-  id        String   @id @default(uuid())
+  id String @id @default(cuid())
   tutorName String
   petName String
   phone String
-  description String?
+  description String
   scheduleAt DateTime
 
   @@map("appointments")
