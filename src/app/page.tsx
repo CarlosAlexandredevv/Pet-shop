@@ -1,5 +1,6 @@
 import { PeriodSection } from '@/components/period-section';
 import { APPOINTMENTS_MOCK, groupAppointmentByPeriod } from '@/utils';
+import { AppointmentForm } from '@/components/appointment-form/appointment-form';
 
 export default function Home() {
   const periods = groupAppointmentByPeriod(APPOINTMENTS_MOCK);
@@ -20,6 +21,9 @@ export default function Home() {
         {periods.map((period, index) => (
           <PeriodSection key={index} period={period} />
         ))}
+      </div>
+      <div>
+        <AppointmentForm />
       </div>
     </div>
   );
