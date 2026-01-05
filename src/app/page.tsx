@@ -1,6 +1,7 @@
 import { PeriodSection } from '@/components/period-section';
 import { APPOINTMENTS_MOCK, groupAppointmentByPeriod } from '@/utils';
 import { AppointmentForm } from '@/components/appointment-form/appointment-form';
+import { cn } from '@/lib/utils';
 
 export default function Home() {
   const periods = groupAppointmentByPeriod(APPOINTMENTS_MOCK);
@@ -22,7 +23,12 @@ export default function Home() {
           <PeriodSection key={index} period={period} />
         ))}
       </div>
-      <div>
+      <div
+        className={cn(
+          'fixed bottom-0 left-0 right-0 flex justify-center bg-[#23242C] py-[18px] px-6 md:right-6',
+          'md:left-auto md:top-auto md:w-auto md:bg-transparent',
+        )}
+      >
         <AppointmentForm />
       </div>
     </div>
