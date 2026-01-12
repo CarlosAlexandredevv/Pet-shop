@@ -5,6 +5,7 @@ import { cn } from '@/lib/utils';
 import { prisma } from '@/lib/prisma';
 import { Button } from '@/components/ui/button';
 import { endOfDay, parseISO, startOfDay } from 'date-fns';
+import { DatePicker } from '@/components/date-picker/date-picker';
 
 export default async function Home({
   searchParams,
@@ -38,8 +39,15 @@ export default async function Home({
           <p className="text-paragraph-medium-size text-content-secondary">
             Aqui você pode ver todos os clientes e serviços agendados para hoje.
           </p>
+          <div className="hidden md:flex item-center gap-4 mt-4">
+            <DatePicker />
+          </div>
+          <div className="mt-3 mb-8 md:hidden">
+            <DatePicker />
+          </div>
         </div>
       </div>
+
       <div className="pb-24 md:pb-0">
         {periods.map((period, index) => (
           <PeriodSection key={index} period={period} />
