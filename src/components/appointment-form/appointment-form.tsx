@@ -46,7 +46,8 @@ import {
 } from '../ui/select';
 import { toast } from 'sonner';
 import { createAppointment } from '@/app/actions';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { Appointment } from '@/types/appointment';
 
 const appointmentFormSchema = z
   .object({
@@ -77,7 +78,15 @@ const appointmentFormSchema = z
 
 type AppointmentFormSchema = z.infer<typeof appointmentFormSchema>;
 
-export function AppointmentForm() {
+interface AppointmentsFormProps {
+  appointment?: Appointment;
+  children?: React.ReactNode;
+}
+
+export function AppointmentForm({
+  appointment,
+  children,
+}: AppointmentsFormProps) {
   const [open, setOpen] = useState(false);
 
   const form = useForm<AppointmentFormSchema>({
@@ -107,14 +116,26 @@ export function AppointmentForm() {
 
     toast.success(`Agendamento criado com sucesso!`);
     form.reset();
+
     setOpen(false);
   }
 
+  useEffect(() => {
+    if (appointment) {
+      form.reset({
+        tutorName: appointment.tutorName,
+        petName: appointment.petName,
+        phone: appointment.phone,
+        description: appointment.description ?? '',
+        scheduleAt: appointment.scheduleAt,
+        time: appointment.time,
+      });
+    }
+  }, [appointment, form]);
+
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>
-        <Button variant="brand">Novo Agendamento</Button>
-      </DialogTrigger>
+      {children && <DialogTrigger asChild>{children}</DialogTrigger>}
 
       <DialogContent
         variant="appointment"

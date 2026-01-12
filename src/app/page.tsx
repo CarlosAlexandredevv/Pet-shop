@@ -3,6 +3,7 @@ import { groupAppointmentByPeriod } from '@/utils';
 import { AppointmentForm } from '@/components/appointment-form/appointment-form';
 import { cn } from '@/lib/utils';
 import { prisma } from '@/lib/prisma';
+import { Button } from '@/components/ui/button';
 
 export default async function Home() {
   const appointments = await prisma.appointment.findMany();
@@ -32,7 +33,9 @@ export default async function Home() {
           'md:left-auto md:top-auto md:w-auto md:bg-transparent',
         )}
       >
-        <AppointmentForm />
+        <AppointmentForm>
+          <Button variant="brand">Novo Agendamento</Button>
+        </AppointmentForm>
       </div>
     </div>
   );
