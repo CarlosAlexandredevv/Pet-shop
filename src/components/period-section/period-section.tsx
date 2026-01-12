@@ -40,7 +40,7 @@ export function PeriodSection({ period }: PeriodSectionProps) {
         </div>
       ) : (
         <div>
-          <p className="text-label-large-size text-content-secondary">
+          <p className="text-paragraph-small-size text-content-secondary p-5">
             Nenhum agendamento encontrado
           </p>
         </div>
