@@ -10,7 +10,7 @@ import { Button } from '../ui/button';
 import { Calendar } from '../ui/calendar';
 import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
 import { usePathname, useSearchParams, useRouter } from 'next/navigation';
-import { useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { addDays, format, isValid } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 import { NavigationButton } from './navigation-button';
@@ -39,18 +39,30 @@ export const DatePicker = () => {
 
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);
 
-  const updateURLWithDate = (selectedDate: Date | undefined) => {
-    if (!selectedDate) return;
+  const updateURLWithDate = useCallback(
+    (selectedDate: Date | undefined) => {
+      if (!selectedDate) return;
 
-    const newParams = new URLSearchParams(searchParams.toString());
-    newParams.set('date', format(selectedDate, 'yyyy-MM-dd'));
-    router.push(`${pathname}?${newParams.toString()}`);
-  };
+      const newParams = new URLSearchParams(searchParams.toString());
+      newParams.set(
+        'date',
+        format(selectedDate, 'yyyy-MM-dd', { locale: ptBR }),
+      );
+      router.push(`${pathname}?${newParams.toString()}`);
+    },
+    [searchParams, pathname, router],
+  );
 
   const handleNavigateDay = (days: number) => {
     const newDate = addDays(date || new Date(), days);
     updateURLWithDate(newDate);
   };
+
+  useEffect(() => {
+    if (!dateParam) {
+      updateURLWithDate(new Date());
+    }
+  }, [dateParam, updateURLWithDate]);
 
   return (
     <div className="flex items-center gap-2">

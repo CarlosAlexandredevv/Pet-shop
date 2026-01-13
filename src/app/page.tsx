@@ -1,7 +1,6 @@
 import { PeriodSection } from '@/components/period-section';
 import { groupAppointmentByPeriod } from '@/utils';
 import { AppointmentForm } from '@/components/appointment-form/appointment-form';
-import { cn } from '@/lib/utils';
 import { prisma } from '@/lib/prisma';
 import { Button } from '@/components/ui/button';
 import { endOfDay, parseISO, startOfDay } from 'date-fns';
