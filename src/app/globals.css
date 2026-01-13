@@ -256,3 +256,16 @@
 [data-sonner-toast][data-type='error'] [data-icon] {
   color: #ffffff !important;
 }
+
+@keyframes loading-bar {
+  0% {
+    left: -33.33%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+.animate-loading-bar {
+  animation: loading-bar 1.5s ease-in-out infinite;
+}
