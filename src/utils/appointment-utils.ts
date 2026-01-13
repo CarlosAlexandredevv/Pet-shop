@@ -1,4 +1,4 @@
-import { Appointment as AppointmentPrisma } from '../../generated/prisma/client';
+import { Appointment as AppointmentPrisma } from '@prisma/client';
 import {
   Appointment,
   AppointmentPeriod,
@@ -16,12 +16,9 @@ export function groupAppointmentByPeriod(
 ): AppointmentPeriod[] {
   const transformedAppointments: Appointment[] = appointments?.map((apt) => ({
     ...apt,
-    time: apt.scheduleAt.toLocaleTimeString('pt-BR', {
-      hour: '2-digit',
-      minute: '2-digit',
-    }),
+    time: formatDateTime(apt.scheduleAt).toString(),
     service: apt.description,
-    period: getPeriod(apt.scheduleAt.getHours()),
+    period: getPeriod(formatDateTime(apt.scheduleAt)),
   }));
 
   const morningAppointments = transformedAppointments.filter(
@@ -66,4 +63,15 @@ export function calculatePeriod(hour: number) {
     isAfternoon,
     isEvening,
   };
+}
+
+export function formatDateTime(date: Date) {
+  return parseInt(
+    date.toLocaleTimeString('pt-BR', {
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: false,
+      timeZone: 'America/Sao_Paulo',
+    }),
+  );
 }

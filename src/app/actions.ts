@@ -3,7 +3,7 @@
 import { prisma } from '@/lib/prisma';
 import z from 'zod';
 import { revalidatePath } from 'next/cache';
-import { calculatePeriod } from '@/utils';
+import { calculatePeriod, formatDateTime } from '@/utils/appointment-utils';
 
 const appointmentSchema = z.object({
   tutorName: z.string(),
@@ -20,7 +20,7 @@ export async function createAppointment(data: AppointmentData) {
     const parsedData = appointmentSchema.parse(data);
 
     const { scheduleAt } = parsedData;
-    const hour = scheduleAt.getHours();
+    const hour = formatDateTime(scheduleAt);
 
     const { isMorning, isAfternoon, isEvening } = calculatePeriod(hour);
 
@@ -63,7 +63,7 @@ export async function updateAppointment(id: string, data: AppointmentData) {
     const parsedData = appointmentSchema.parse(data);
 
     const { scheduleAt } = parsedData;
-    const hour = scheduleAt.getHours();
+    const hour = formatDateTime(scheduleAt);
 
     const { isMorning, isAfternoon, isEvening } = calculatePeriod(hour);
 
