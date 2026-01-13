@@ -2,6 +2,8 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
 import { Toaster } from 'sonner';
+import { Header } from '@/components/header';
+
 const inter = Inter({
   variable: '--font-inter',
   subsets: ['latin'],
@@ -26,10 +28,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="pt-BR">
       <body className={`${inter.variable} ${interTight.variable} antialiased`}>
-        {children}
-        <Toaster position="top-right" />
+        <Header />
+
+        <div className="max-w-3xl mx-auto">
+          <main className="flex-1 flex flex-col mt-12">
+            {children}
+            <Toaster position="top-right" richColors />
+          </main>
+        </div>
       </body>
     </html>
   );
